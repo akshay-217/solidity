@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.19;
+
+contract MBDbank{
+
+    mapping (address=>uint) balance;
+    mapping (address=>uint) balance_new;
+
+    function deposit(uint _amt) external payable 
+    {
+        balance [msg.sender]=_amt;
+
+    }
+
+    function withdraw (uint _amt) external 
+    {
+        balance[msg.sender]=balance[msg.sender]-_amt;
+    }
+
+    function credit (uint _amt) external 
+    {
+        balance[msg.sender]=balance[msg.sender]+_amt;
+    }
+
+    
+    function getbal(address owner) external view  returns(uint,uint)
+    {
+        return (balance[owner],balance_new[owner]);
+    }
+
+    function transferamt(address _owner, uint _amt) external 
+    {
+        balance[msg.sender]=balance[msg.sender]-_amt;
+        balance_new[_owner]=balance_new[_owner]+_amt;
+    }
+}
